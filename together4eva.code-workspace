@@ -1,0 +1,180 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    // Editor Settings
+    "editor.formatOnSave": true,
+    "editor.rulers": [80, 120],
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+
+    // Context Management Integration
+    "files.exclude": {
+      "**/.git": false,
+      ".context/checkpoints/*.md": false
+    },
+
+    // File Associations
+    "files.associations": {
+      ".context/**/*.md": "markdown",
+      ".context_aliases.sh": "shellscript"
+    },
+
+    // Search Settings
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/venv": true,
+      "**/__pycache__": true,
+      "**/.git": true
+    },
+
+    // Markdown Settings
+    "markdown.preview.scrollEditorWithPreview": true,
+    "markdown.preview.scrollPreviewWithEditor": true,
+
+    // Python Settings
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.formatting.provider": "black",
+
+    // Git Settings
+    "git.autofetch": true,
+    "git.confirmSync": false,
+
+    // Terminal Settings
+    "terminal.integrated.env.linux": {
+      "CONTEXT_PROJECT_ROOT": "${workspaceFolder}"
+    },
+    "terminal.integrated.env.osx": {
+      "CONTEXT_PROJECT_ROOT": "${workspaceFolder}"
+    },
+
+    // Custom Tasks
+    "tasks.version": "2.0.0"
+  },
+
+  // Recommended Extensions
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "yzhang.markdown-all-in-one",
+      "bierner.markdown-preview-github-styles",
+      "eamodio.gitlens",
+      "streetsidesoftware.code-spell-checker",
+      "ms-vscode.live-server"
+    ]
+  },
+
+  // Tasks
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Context: Save",
+        "type": "shell",
+        "command": "python3",
+        "args": ["context_manager.py", "save", "${input:saveDescription}"],
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "new"
+        }
+      },
+      {
+        "label": "Context: Create Checkpoint",
+        "type": "shell",
+        "command": "python3",
+        "args": ["context_manager.py", "checkpoint", "${input:checkpointDescription}"],
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "new"
+        }
+      },
+      {
+        "label": "Context: Show Status",
+        "type": "shell",
+        "command": "python3",
+        "args": ["context_manager.py", "status"],
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "new"
+        }
+      },
+      {
+        "label": "Context: Generate Handoff",
+        "type": "shell",
+        "command": "python3",
+        "args": ["context_manager.py", "handoff"],
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "new"
+        }
+      },
+      {
+        "label": "Context: Sync to Notion",
+        "type": "shell",
+        "command": "python3",
+        "args": ["notion_sync.py", "sync"],
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "new"
+        }
+      },
+      {
+        "label": "Context: Setup Notion",
+        "type": "shell",
+        "command": "python3",
+        "args": ["notion_sync.py", "setup"],
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "new"
+        }
+      }
+    ],
+    "inputs": [
+      {
+        "id": "saveDescription",
+        "type": "promptString",
+        "description": "Describe what you just did"
+      },
+      {
+        "id": "checkpointDescription",
+        "type": "promptString",
+        "description": "Describe this checkpoint/milestone"
+      }
+    ]
+  },
+
+  // Launch Configurations
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Python: Context Manager",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/context_manager.py",
+        "console": "integratedTerminal",
+        "args": ["status"]
+      },
+      {
+        "name": "Python: Notion Sync",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/notion_sync.py",
+        "console": "integratedTerminal",
+        "args": ["sync"]
+      }
+    ]
+  }
+}

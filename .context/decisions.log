@@ -1,0 +1,34 @@
+# Decision Log - Chronological Record
+
+This is an append-only log of decisions. For detailed rationale, see decisions.md.
+
+Format: [DATE] [CATEGORY] Decision summary
+
+---
+
+[2025-11-01] [ARCHITECTURE] Adopted file-based context management system in .context/ folder
+[2025-11-01] [ARCHITECTURE] Multiple specialized context files vs single monolithic file
+[2025-11-01] [TOOLING] Python chosen for automation scripts (context_manager.py)
+[2025-11-01] [WORKFLOW] Git pre-commit hook for automatic context saving
+[2025-11-01] [INTEGRATION] Notion sync capability for visual dashboard (optional)
+
+---
+
+# How to append to this log
+
+From command line:
+```bash
+echo "[$(date +%Y-%m-%d)] [CATEGORY] Your decision" >> .context/decisions.log
+```
+
+From context_manager.py:
+```bash
+python context_manager.py log-decision "CATEGORY" "Your decision"
+```
+
+From Claude Code:
+Just tell me about the decision and I'll append it here.
+
+---
+
+*End of log*
